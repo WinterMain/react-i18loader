@@ -1,6 +1,19 @@
 const md5 = require('blueimp-md5')
 const fs = require('fs');
 const deprecatedMark = '@DEPRECATED@'
+const chineseS2T = require("chinese-s2t");
+
+function transChineseS2T(value) {
+    return chineseS2T.s2t(value.replace(/^\[R\]+/, ""));
+}
+
+function getObjValue(value, field) {
+    if(value instanceof Object) {
+        return value[field]
+    }
+
+    return value;
+}
 
 /**
  * Generate key for text
@@ -180,5 +193,7 @@ module.exports = {
     importlang,
     insertScript,
     getFileName,
-    writeDataToFile
+    writeDataToFile,
+    getObjValue,
+    transChineseS2T,
 }

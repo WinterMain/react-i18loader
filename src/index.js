@@ -24,7 +24,7 @@ module.exports = function (source, map) {
   const filename = handler.getFileName(this.resourcePath)
   let defaultLang = "zh_Hans_CN";
   if(options.languages && options.languages.length > 0) {
-    defaultLang = options.languages[0]
+    defaultLang = handler.getObjValue(options.languages[0], "key");
   }
 
   const resultContent = handler.generateContent(pureSource, matchRegText);
@@ -36,10 +36,17 @@ module.exports = function (source, map) {
   if(options.languages) {
     targetLanguages = options.languages;
   }
+  let defaultTranslator = (text, lang) => {
+      if(lang === "zh_Hant_HK") {
+          return handler.transChineseS2T(text)
+      }
+      return text
+  };
   replacers.forEach(item => {
     targetLanguages.forEach(curlang => {
+        let translator = handler.getObjValue(options.languages[0], "translator") || defaultTranslator;
         data[curlang] = data[curlang] || {};
-        data[curlang][item.key] = item.old;
+        data[curlang][item.key] = translator(item.old, curlang);
     });
   });
 
