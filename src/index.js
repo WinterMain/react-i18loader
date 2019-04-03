@@ -43,8 +43,13 @@ module.exports = function (source, map) {
       return text
   };
   replacers.forEach(item => {
-    targetLanguages.forEach(curlang => {
-        let translator = handler.getObjValue(options.languages[0], "translator") || defaultTranslator;
+    targetLanguages.forEach(curlangItem => {
+        let curlang = handler.getObjValue(curlangItem, "key");
+        let translator = handler.getObjValue(curlangItem, "translator");
+        if(!translator || typeof translator === "string") {
+          translator = defaultTranslator;
+        }
+
         data[curlang] = data[curlang] || {};
         data[curlang][item.key] = translator(item.old, curlang);
     });
