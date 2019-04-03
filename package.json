@@ -1,0 +1,23 @@
+{
+  "name": "react-i18n-loader",
+  "version": "0.0.1",
+  "description": "i18n solution for React (Next) with auto generated keys",
+  "main": "react-i18n-loader/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aiyld/react-i18n-loader.git"
+  },
+  "keywords": [
+    "react",
+    "i18n",
+    "next"
+  ],
+  "author": "aiyld@hotmail.com",
+  "license": "MIT",
+  "dependencies": {
+    "blueimp-md5": "^2.10.0",
+    "esprima": "^4.0.1",
+    "htmlparser2": "^3.10.0",
+    "webpack": "^4.28.3"
+  }
+}
