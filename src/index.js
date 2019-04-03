@@ -2,7 +2,7 @@ const loaderUtils = require('loader-utils')
 const handler = require('./handler');
 
 module.exports = function (source, map) {
-  // init options
+  // Init options
   const urlQuery = this.resourceQuery
     ? loaderUtils.parseQuery(this.resourceQuery)
     : null
@@ -12,7 +12,7 @@ module.exports = function (source, map) {
 
   // Ignore excluded files
   if (!this.resourcePath || (options.exclude && this.resourcePath.match(options.exclude))) return source
-  // Use regString or delimiter to find targets
+  // Use regString to find targets
   // Default value is to map simplified chinese characters
   let matchRegText = options.regText || "[\u4e00-\u9fa5\u3002\uff1b\uff0c\uff1a\u2018\u2019\u201c\u201d\uff08\uff09\u3001\uff1f\uff01\ufe15\u300a\u300b]+";
 
