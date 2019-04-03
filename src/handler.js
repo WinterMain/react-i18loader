@@ -106,18 +106,31 @@ function importlang(filename) {
 }
 
 // Insert script to the component or page;
-function insertScript(defaultLang) {
+function insertScript(defaultLang, method) {
+    let getLangStr;
+    switch (method) {
+        case "state":
+        getLangStr = `(this.state||{}).$lang || "${defaultLang}"`;
+            break;
+        case "props": 
+        getLangStr = `(this.props||{}).$lang || "${defaultLang}"`;
+        break;
+        default:
+        getLangStr = `(this.$getLang?this.$getLang():"${defaultLang}")`;
+            break;
+    }
+    
     return `
-if(typeof React !== "undefined" && !React.Component.prototype.$t) {
-    React.Component.prototype.$t = function(key) {
-        if(!this.$lang) {
-            this.$lang = "${defaultLang}";
-        }
+if(typeof React !== "undefined") {
+    if(!React.Component.prototype.$t) {
+        React.Component.prototype.$t = function(key) {
+            const curLang = ${getLangStr}
 
-        if(!CurLangTrans["${defaultLang}"]) return key;
-        const trans = CurLangTrans[this.$lang]||CurLangTrans["${defaultLang}"]||{};
-        return trans[key]===undefined?key:trans[key];
-    };
+            if(!curLang && !CurLangTrans["${defaultLang}"]) return key;
+            const trans = CurLangTrans[this.$lang]||CurLangTrans["${defaultLang}"]||{};
+            return trans[key]===undefined?key:trans[key];
+        };
+    }
 }
     `
 }
