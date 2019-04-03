@@ -110,7 +110,11 @@ function insertScript(defaultLang) {
     return `
 if(typeof React !== "undefined" && !React.Component.prototype.$t) {
     React.Component.prototype.$t = function(key) {
-        if(!this.$lang && !CurLangTrans["${defaultLang}"]) return key;
+        if(!this.$lang) {
+            this.$lang = "${defaultLang}";
+        }
+
+        if(!CurLangTrans["${defaultLang}"]) return key;
         const trans = CurLangTrans[this.$lang]||CurLangTrans["${defaultLang}"]||{};
         return trans[key]===undefined?key:trans[key];
     };
@@ -134,8 +138,6 @@ function sortObjectByKey(unordered) {
 function writeDataToFile(data, resourcePath) {
     const path = resourcePath.match(/(.*)((\.jsx$)|(\.js$))/);
     const filePath = getPathName(path[1]);
-
-    console.log(filePath)
 
     try {
         const file = fs.readFileSync(filePath);
