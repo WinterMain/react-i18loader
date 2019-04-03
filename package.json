@@ -1,6 +1,6 @@
 {
   "name": "react-i18n-loader",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "i18n solution for React (Next) with auto generated keys",
   "main": "src/index.js",
   "repository": {
@@ -16,6 +16,7 @@
   "license": "MIT",
   "dependencies": {
     "blueimp-md5": "^2.10.0",
-    "webpack": "^4.28.3"
+    "webpack": "^4.28.3",
+    "chinese-s2t": "1.0.0"
   }
 }
