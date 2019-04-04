@@ -12,7 +12,7 @@
     "i18n",
     "next"
   ],
-  "author": "aiyld@hotmail.com",
+  "author": "Winter<aiyld@hotmail.com>",
   "license": "MIT",
   "dependencies": {
     "blueimp-md5": "^2.10.0",
