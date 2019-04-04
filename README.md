@@ -2,6 +2,12 @@
 
 react-i18n-loader is a webpack loader for React (or React framework, e.g. Next.js) i18n solution.
 
+# How it work?
+1. Extract the sentences to be translated from the target file.
+2. Generate a JSON file corresponding to target file and fill in the extracted sentences.
+3. Loader will hanler the target file to import this JSON file and add a method to retrieve the translations.
+4. Change the $lang in props (You can change it in state or get the value by function, depends on your webpack config) to change the APP language.
+
 # Usage
 
 ## Set Up
@@ -14,10 +20,9 @@ npm install react-i18n-loader --save-dev
 ```
 {
     // this loader will generate *.messages.json beside *.jsx files
-    test: /(pages|service)(.+?)\.(js|jsx)$/,
+    test: /\.(js|jsx)$/,
     exclude: [
         /(node_modules)|(\.next)/,
-        /(components\/)/i,
     ],
     use: {
         loader: "react-i18n-loader",
@@ -36,3 +41,4 @@ npm install react-i18n-loader --save-dev
     }
 }
 ```
+### 
