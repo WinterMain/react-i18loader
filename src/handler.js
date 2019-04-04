@@ -28,7 +28,7 @@ function generateKey(text) {
 // Remove comments in source code
 // Remove comments like /*  */ and //
 function removeComments(source) {
-    return source.replace(/\/\*[\s\S]*?\*\//igm, '').replace(/\/\/.*/igm, '');
+    return source.replace(/\/\*[\s\S]*?\*\//igm, '');
 }
 
 function replaceToSafeText(text) {
