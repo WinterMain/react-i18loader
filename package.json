@@ -1,7 +1,7 @@
 {
   "name": "react-i18n-loader",
   "version": "0.0.9",
-  "description": "i18n solution for React (Next) with auto generated keys",
+  "description": "An i18n solution for React (Next.js) with auto generated lanuage file and modularization",
   "main": "src/index.js",
   "repository": {
     "type": "git",
