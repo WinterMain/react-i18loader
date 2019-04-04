@@ -110,10 +110,10 @@ function insertScript(defaultLang, method) {
     let getLangStr;
     switch (method) {
         case "state":
-        getLangStr = `(this.state||{}).$lang || "${defaultLang}"`;
+        getLangStr = `(this.state||{}).$lang`;
             break;
         case "props": 
-        getLangStr = `(this.props||{}).$lang || "${defaultLang}"`;
+        getLangStr = `(this.props||{}).$lang`;
         break;
         default:
         getLangStr = `(this.$getLang?this.$getLang():"${defaultLang}")`;
@@ -125,9 +125,8 @@ if(typeof React !== "undefined") {
     if(!React.Component.prototype.$t) {
         React.Component.prototype.$t = function(key) {
             const curLang = ${getLangStr}
-
             if(!curLang && !CurLangTrans["${defaultLang}"]) return key;
-            const trans = CurLangTrans[this.$lang]||CurLangTrans["${defaultLang}"]||{};
+            const trans = CurLangTrans[curLang]||CurLangTrans["${defaultLang}"]||{};
             return trans[key]===undefined?key:trans[key];
         };
     }
