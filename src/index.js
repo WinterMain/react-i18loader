@@ -21,6 +21,11 @@ module.exports = function (source, map) {
     return source;
   }
 
+  let placedLangMark = source.match(/@lang\([\"|'](.*?)[\"|']\)/igm);
+  if(!placedLangMark) {
+    return source;
+  }
+
   const filename = handler.getFileName(this.resourcePath)
   let defaultLang = "zh_Hans_CN";
   if(options.languages && options.languages.length > 0) {
@@ -28,7 +33,8 @@ module.exports = function (source, map) {
   }
 
   const resultContent = handler.generateContent(pureSource, matchRegText);
-  let insertScript = handler.importlang(filename) + resultContent.result + handler.insertScript(defaultLang, options.method);
+  let insertScript = handler.importlang(filename) + resultContent.result;
+  insertScript = handler.insertScript(insertScript, placedLangMark, defaultLang, options.method);
 
   const replacers = resultContent.replacers;
   const data = {};

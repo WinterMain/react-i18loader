@@ -105,8 +105,19 @@ function importlang(filename) {
     return `import CurLangTrans from "./${getPathName(filename)}";`
 }
 
+function generateFuncs(target, getLangStr, defaultLang) {
+    return `
+    ${target}.prototype.$t = function(key) {
+        const curLang = ${getLangStr}
+        if(!curLang && !CurLangTrans["${defaultLang}"]) return key;
+        const trans = CurLangTrans[curLang]||CurLangTrans["${defaultLang}"]||{};
+        return trans[key]===undefined?key:trans[key];
+    };
+`;
+}
+
 // Insert script to the component or page;
-function insertScript(defaultLang, method) {
+function insertScript(source, sourceMatchs, defaultLang, method) {
     let getLangStr;
     switch (method) {
         case "state":
@@ -119,19 +130,16 @@ function insertScript(defaultLang, method) {
         getLangStr = `(this.$getLang?this.$getLang():"${defaultLang}")`;
             break;
     }
-    
-    return `
-if(typeof React !== "undefined") {
-    if(!React.Component.prototype.$t) {
-        React.Component.prototype.$t = function(key) {
-            const curLang = ${getLangStr}
-            if(!curLang && !CurLangTrans["${defaultLang}"]) return key;
-            const trans = CurLangTrans[curLang]||CurLangTrans["${defaultLang}"]||{};
-            return trans[key]===undefined?key:trans[key];
-        };
+    if(sourceMatchs && sourceMatchs.length > 0) {
+        sourceMatchs.forEach(cur => {
+            let curMatch = cur.match(/@lang\([\"|'](.*?)[\"|']\)/);
+            let objName = trimText(curMatch[1]);
+            source += generateFuncs(objName, getLangStr, defaultLang);
+            source = source.replace(curMatch[0], '');
+        });
     }
-}
-    `
+
+    return source;
 }
 
 function sortObjectByKey(unordered) {
