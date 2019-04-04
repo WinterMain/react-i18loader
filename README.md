@@ -1,4 +1,4 @@
-# React I18n Loader
+# React i18n loader
 
 react-i18n-loader is a webpack loader for React (or React framework, e.g. Next.js) i18n solution.
 
