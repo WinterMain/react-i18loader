@@ -77,20 +77,20 @@ function generateForReg(text, selectionReg, matchReg, strTemplate, replacePure) 
     if (matchResult) {
         matchResult.forEach(item => {
             let pureStr = trimText(item.substring(1, replacePure ? item.length - 2 : item.length - 1));
-            if (pureStr.match(matchReg) && pureStr.indexOf("$t") < 0) {
+            if (pureStr.match(matchReg) && pureStr.indexOf("this.$t") < 0) {
                 let textKey = generateKey(pureStr);
                 let newText = strTemplate.replace(new RegExp("key"), textKey);
                 replacers.push({
                     origin: item,
                     old: pureStr,
-                    new: newText,
+                    new: replacePure ? `>${newText}</` : newText,
                     key: textKey,
                 });
             }
         });
 
         replacers.forEach(item => {
-            const regexp = new RegExp(replaceToSafeText(replacePure ? item.old : item.origin));
+            const regexp = new RegExp(replaceToSafeText(item.origin));
             result = result.replace(regexp, item.new);
         });
     }
