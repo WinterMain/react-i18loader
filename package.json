@@ -1,6 +1,6 @@
 {
   "name": "react-i18n-loader",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "i18n solution for React (Next) with auto generated keys",
   "main": "src/index.js",
   "repository": {

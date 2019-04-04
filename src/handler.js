@@ -132,7 +132,7 @@ function insertScript(source, sourceMatchs, defaultLang, method) {
     }
     if(sourceMatchs && sourceMatchs.length > 0) {
         sourceMatchs.forEach(cur => {
-            let curMatch = cur.match(/@lang\([\"|'](.*?)[\"|']\)/);
+            let curMatch = cur.match(/@i18n\([\"|'](.*?)[\"|']\)/);
             let objName = trimText(curMatch[1]);
             source += generateFuncs(objName, getLangStr, defaultLang);
             source = source.replace(curMatch[0], '');

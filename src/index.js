@@ -21,7 +21,7 @@ module.exports = function (source, map) {
     return source;
   }
 
-  let placedLangMark = source.match(/@lang\([\"|'](.*?)[\"|']\)/igm);
+  let placedLangMark = source.match(/@i18n\([\"|'](.*?)[\"|']\)/igm);
   if(!placedLangMark) {
     return source;
   }
