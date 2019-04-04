@@ -120,15 +120,16 @@ function generateFuncs(target, getLangStr, defaultLang) {
 function insertScript(source, sourceMatchs, defaultLang, method) {
     let getLangStr;
     switch (method) {
-        case "state":
-        getLangStr = `(this.state||{}).$lang`;
-            break;
-        case "props": 
-        getLangStr = `(this.props||{}).$lang`;
-        break;
-        default:
-        getLangStr = `(this.$getLang?this.$getLang():"${defaultLang}")`;
-            break;
+        case "state": {
+            getLangStr = `(this.state||{}).$lang`;
+        } break;
+        case "func": {
+            getLangStr = `(this.$getLang?this.$getLang():"${defaultLang}")`;
+        } break;
+        case "props":
+        default: {
+            getLangStr = `(this.props||{}).$lang`;
+        } break;
     }
     if(sourceMatchs && sourceMatchs.length > 0) {
         sourceMatchs.forEach(cur => {
