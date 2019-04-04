@@ -19,7 +19,7 @@ npm install react-i18n-loader --save-dev
 ## Configure webpack
 ```
 {
-    // this loader will generate *.messages.json beside *.jsx files
+    // this loader will generate *.lang.json beside *.jsx files
     test: /\.(js|jsx)$/,
     exclude: [
         /(node_modules)|(\.next)/,
