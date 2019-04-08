@@ -16,15 +16,17 @@ module.exports = function (source, map) {
   // Default value is to map simplified chinese characters
   let matchRegText = options.regText || "[\u4e00-\u9fa5\u3002\uff1b\uff0c\uff1a\u2018\u2019\u201c\u201d\uff08\uff09\u3001\uff1f\uff01\ufe15\u300a\u300b]+";
 
-  if (!source.match(matchRegText)) {
-    // nothing to translate
-    return source;
-  }
-
   let placedLangMark = source.match(/@i18n\([\"|'](.*?)[\"|']\)/igm);
   if(!placedLangMark) {
     return source;
   }
+
+  if (!source.match(matchRegText) && !placedLangMark) {
+    // nothing to translate
+    return source;
+  }
+
+  console.log(this.resourcePath, "OK");
 
   const filename = handler.getFileName(this.resourcePath)
   let defaultLang = "zh_Hans_CN";
