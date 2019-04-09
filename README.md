@@ -15,7 +15,7 @@ reacti18n-loader is a webpack loader for React (or React framework, e.g. Next.js
 ### Set Up
 First install it:
 ```
-npm install react-i18n-loader --save-dev
+npm install reacti18n-loader --save-dev
 ```
 
 ### Configure webpack
@@ -26,7 +26,7 @@ npm install react-i18n-loader --save-dev
         /(node_modules)|(\.next)/,
     ],
     use: {
-        loader: "react-i18n-loader",
+        loader: "reacti18n-loader",
         options: {
             languages: ["zh_Hans_CN", "zh_Hant_HK", "en_US"], // The langauages that you App supported
         }
@@ -50,7 +50,7 @@ export default class Hello extends Component {
   render() {
     const msg = "我是简体";
     return <div>
-      <p>你好，欢迎使用react-i18n-loader，发现代码之美</p>
+      <p>你好，欢迎使用reacti18n-loader，发现代码之美</p>
       <p>{msg}</p>
     </div>
   }
@@ -96,7 +96,7 @@ export default class Index extends Component {
         /(node_modules)|(\.next)/,
     ],
     use: {
-        loader: "react-i18n-loader",
+        loader: "reacti18n-loader",
         options: {
             // Required fields.
             // The langauages that you App supported
