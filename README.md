@@ -10,13 +10,80 @@ react-i18n-loader is a webpack loader for React (or React framework, e.g. Next.j
 
 # Usage
 
-## Set Up
+## Simple usage
+
+### Set Up
 First install it:
 ```
 npm install react-i18n-loader --save-dev
 ```
 
-## Configure webpack
+### Configure webpack
+```
+{
+    test: /\.(js|jsx)$/, // this loader will generate *.lang.json beside *.jsx files
+    exclude: [
+        /(node_modules)|(\.next)/,
+    ],
+    use: {
+        loader: "react-i18n-loader",
+        options: {
+            languages: ["zh_Hans_CN", "zh_Hant_HK", "en_US"], // The langauages that you App supported
+        }
+    }
+}
+```
+
+### Put label `@i18n("Page_Or_Component_Name")` on your pages or components
+hello.js
+```
+import React, { Component } from "react";
+
+@i18n("Hello")
+export default class Hello extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    const msg = "我是简体";
+    return <div>
+      <p>你好，欢迎使用react-i18n-loader，发现代码之美</p>
+      <p>{msg}</p>
+    </div>
+  }
+}
+```
+* You need to change the `$lang` in `props` to change the language
+index.js
+```
+import React, { Component } from "react";
+import Hello from "../components/hello";
+
+export default class Index extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      lang: "zh_Hans_CN"
+    };
+  }
+
+  changeLang(lang) {
+    this.setState({lang});
+  }
+
+  render() {
+    return <div>
+      <button onClick={this.changeLang.bind(this, "zh_Hans_CN")}>简体中文</button> 
+      <button onClick={this.changeLang.bind(this, "zh_Hant_HK")}>繁體中文</button>
+      <button onClick={this.changeLang.bind(this, "en_US")}>English</button>
+      <Hello $lang={this.state.lang}/>
+    </div>
+  }
+}
+```
+
+## Advance Setting
 ```
 {
     // this loader will generate *.lang.json beside *.jsx files
