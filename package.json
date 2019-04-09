@@ -1,11 +1,11 @@
 {
   "name": "reacti18n-loader",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "An i18n solution for React (Next.js) with auto generated lanuage file and modularization",
   "main": "src/index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/aiyld/react-i18n-loader.git"
+    "url": "https://github.com/aiyld/reacti18n-loader.git"
   },
   "keywords": [
     "react",

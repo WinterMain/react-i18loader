@@ -1,6 +1,6 @@
-# react-i18n-loader
+# reacti18n-loader
 
-react-i18n-loader is a webpack loader for React (or React framework, e.g. Next.js) i18n solution.
+reacti18n-loader is a webpack loader for React (or React framework, e.g. Next.js) i18n solution.
 
 # How it work?
 1. Extract the sentences to be translated from the target file.
