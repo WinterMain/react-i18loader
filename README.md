@@ -2,6 +2,8 @@
 
 reacti18n-loader is a webpack loader for React (or React framework, e.g. Next.js) i18n solution.
 
+# [Documentation in Chinese 中文文档](https://www.samyoc.com/single/143)
+
 # How it work?
 1. Extract the sentences to be translated from the target file.
 2. Generate a JSON file corresponding to target file and fill in the extracted sentences.
@@ -87,7 +89,9 @@ export default class Index extends Component {
 }
 ```
 
-## Advance Setting
+## Advance usage
+
+### Configure webpack for more customization
 ```
 {
     // this loader will generate *.lang.json beside *.jsx files
@@ -105,11 +109,30 @@ export default class Index extends Component {
 
             // Optional fields.
             // The target component object where the loader will put a filed "$lang" in.
-            options: "props", // It could be these three values: props, state, func 
+            method: "props", // It could be these three values: props, state, func 
             // The content to be translated. And the content must accord with this RegEx, default value is Chinese Simplified
             regText: "[\u4e00-\u9fa5\u3002\uff1b\uff0c\uff1a\u2018\u2019\u201c\u201d\uff08\uff09\u3001\uff1f\uff01\ufe15\u300a\u300b]+",
         }
     }
 }
 ```
-### 
+### The `languages` property in `options`
+It should be an array which could contain the target language. You can also add Ja_JP, In_In ,bala and so on to this array.
+
+### The `regText` property in `options`
+Based on the regular text `regText`, you can extract the matching text as the translation source.
+
+So if you want to translate Chinese into other languages，you should set：
+```
+regText: "[\u4e00-\u9fa5\u3002\uff1b\uff0c\uff1a\u2018\u2019\u201c\u201d\uff08\uff09\u3001\uff1f\uff01\ufe15\u300a\u300b]+"
+```
+
+### The `method` property in `options`
+
+Property `method` could be these three values: props, state, func. Its default value is `props`.
+
+value | description |   
+-|-|
+props | An property name `$lang` would add to the props of React component, so you need to change the `props.$lang` to change the web language. For more information, please refer the `set_lang_via_props` in `examples` folder  |
+state | An property name `$lang` would add to the state of React component, so you need to change the `state.$lang` to change the web language. For more information, please refer the `set_lang_via_state` in `examples` folder |
+func | You need to add a method `$getLang() {return XXX; // The language code like 'zh_Hans_CN'` to your React component}. For more information, please refer the `set_lang_via_func` in `examples` folder|

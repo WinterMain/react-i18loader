@@ -22,6 +22,6 @@
     "react-dom": "^16.8.6"
   },
   "devDependencies": {
-    "reacti18n-loader": "0.0.12"
+    "reacti18n-loader": "0.0.13"
   }
 }
