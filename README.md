@@ -35,7 +35,9 @@ npm install react-i18n-loader --save-dev
 ```
 
 ### Put label `@i18n("Page_Or_Component_Name")` on your pages or components
+
 hello.js
+
 ```
 import React, { Component } from "react";
 
@@ -54,8 +56,10 @@ export default class Hello extends Component {
   }
 }
 ```
-* You need to change the `$lang` in `props` to change the language
+* You need to change the `$lang` in `props` to change the language *
+
 index.js
+
 ```
 import React, { Component } from "react";
 import Hello from "../components/hello";
