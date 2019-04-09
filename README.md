@@ -56,7 +56,7 @@ export default class Hello extends Component {
   }
 }
 ```
-* You need to change the `$lang` in `props` to change the language *
+* You need to change the `$lang` in `props` to change the language
 
 index.js
 
