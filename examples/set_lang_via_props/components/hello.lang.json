@@ -1,14 +1,14 @@
 {
     "en_US": {
-        "你好，欢迎使用r_cfdb": "Hello, welcome to discover the beauty of code using reacti18n-loader",
+        "你好，欢迎使用r_cfdb": "Hello, welcome to discover the beauty of code using react-i18loader",
         "我是简体": "I'm English"
     },
     "zh_Hans_CN": {
-        "你好，欢迎使用r_cfdb": "你好，欢迎使用reacti18n-loader，发现代码之美",
+        "你好，欢迎使用r_cfdb": "你好，欢迎使用react-i18loader，发现代码之美",
         "我是简体": "我是简体"
     },
     "zh_Hant_HK": {
-        "你好，欢迎使用r_cfdb": "你好，歡迎使用reacti18n-loader，發現代碼之美",
+        "你好，欢迎使用r_cfdb": "你好，歡迎使用react-i18loader，發現代碼之美",
         "我是简体": "我是繁體"
     }
 }

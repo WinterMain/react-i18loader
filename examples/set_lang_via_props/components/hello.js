@@ -9,7 +9,7 @@ export default class Hello extends Component {
   render() {
     const msg = "我是简体";
     return <div>
-      <p>你好，欢迎使用reacti18n-loader，发现代码之美</p>
+      <p>你好，欢迎使用react-i18loader，发现代码之美</p>
       <p>{msg}</p>
     </div>
   }

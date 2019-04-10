@@ -28,7 +28,7 @@ export default class Index extends Component {
       <button onClick={this.changeLang.bind(this, "en_US")}>English</button>
 
       <div>
-        <p>你好，欢迎使用reacti18n-loader，发现代码之美</p>
+        <p>你好，欢迎使用react-i18loader，发现代码之美</p>
         <p>{msg}</p>
       </div>
     </div>

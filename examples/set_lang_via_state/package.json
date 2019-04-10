@@ -1,7 +1,7 @@
 {
   "name": "set_lang_via_state",
   "version": "1.0.0",
-  "description": "reacti18n-loader set language via state example",
+  "description": "react-i18loader set language via state example",
   "main": "index.js",
   "scripts": {
     "dev": "next",
@@ -22,6 +22,6 @@
     "react-dom": "^16.8.6"
   },
   "devDependencies": {
-    "reacti18n-loader": "0.0.12"
+    "react-i18loader": "0.0.13"
   }
 }

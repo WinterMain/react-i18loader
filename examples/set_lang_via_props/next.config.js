@@ -9,7 +9,7 @@ module.exports = {
                 /(node_modules)|(\.next)/,
             ],
             use: {
-                loader: "reacti18n-loader",
+                loader: "react-i18loader",
                 options: {
                     languages: ["zh_Hans_CN", "zh_Hant_HK", "en_US"],
                 }
