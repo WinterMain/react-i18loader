@@ -26,8 +26,6 @@ module.exports = function (source, map) {
     return source;
   }
 
-  console.log(this.resourcePath, "OK");
-
   const filename = handler.getFileName(this.resourcePath)
   let defaultLang = "zh_Hans_CN";
   if(options.languages && options.languages.length > 0) {

@@ -1,6 +1,6 @@
 {
   "name": "react-i18loader",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "An i18n solution for React (Next.js) with auto generated lanuage file and modularization",
   "main": "src/index.js",
   "repository": {
