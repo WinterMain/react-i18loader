@@ -136,3 +136,7 @@ value | description |
 props | An property name `$lang` would add to the props of React component, so you need to change the `props.$lang` to change the web language. For more information, please refer the `set_lang_via_props` in `examples` folder  |
 state | An property name `$lang` would add to the state of React component, so you need to change the `state.$lang` to change the web language. For more information, please refer the `set_lang_via_state` in `examples` folder |
 func | You need to add a method `$getLang() {return XXX; // The language code like 'zh_Hans_CN'` to your React component}. For more information, please refer the `set_lang_via_func` in `examples` folder|
+
+## They are using `react-i18loader`
+| [<img src="http://doc.samyoc.com/static/img/logo.png" width="100px;" alt="SamYoc API Doc"/><br /><sub><b>SamYoc API Doc</b></sub>](http://doc.samyoc.com/)|
+| :---: | :---: | :---: | :---: | :---: | :---: |
