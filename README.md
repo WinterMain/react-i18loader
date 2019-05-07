@@ -28,6 +28,9 @@ npm install react-i18loader --save-dev
         /(node_modules)|(\.next)/,
     ],
     use: {
+        // The folder where store the language json file.
+        // If storePath value is null or empty, the language json file would store corresponding to target js/jsx file
+        storePath: "locales",
         loader: "react-i18loader",
         options: {
             languages: ["zh_Hans_CN", "zh_Hant_HK", "en_US"], // The langauages that you App supported
@@ -102,6 +105,10 @@ export default class Index extends Component {
     use: {
         loader: "react-i18loader",
         options: {
+            // The folder where store the language json file.
+            // If storePath value is null or empty, the language json file would store corresponding to target js/jsx file
+            storePath: "locales",
+
             // Required fields.
             // The langauages that you App supported
             languages: ["zh_Hans_CN", "zh_Hant_HK", "en_US"],
@@ -116,10 +123,15 @@ export default class Index extends Component {
     }
 }
 ```
-### The `languages` property in `options`
+## Property Of `options`
+
+### `storePath`
+Indicate the folder where store the language json file. If storePath value is null or empty, the language json file would store corresponding to target js/jsx file.
+
+### `languages`
 It should be an array which could contain the target language. You can also add Ja_JP, In_In ,bala and so on to this array.
 
-### The `regText` property in `options`
+### `regText`
 Based on the regular text `regText`, you can extract the matching text as the translation source.
 
 So if you want to translate Chinese into other languages，you should set：
@@ -127,7 +139,7 @@ So if you want to translate Chinese into other languages，you should set：
 regText: "[\u4e00-\u9fa5\u3002\uff1b\uff0c\uff1a\u2018\u2019\u201c\u201d\uff08\uff09\u3001\uff1f\uff01\ufe15\u300a\u300b]+"
 ```
 
-### The `method` property in `options`
+### `method`
 
 Property `method` could be these three values: props, state, func. Its default value is `props`.
 

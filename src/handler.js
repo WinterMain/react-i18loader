@@ -90,7 +90,7 @@ function generateForReg(text, selectionReg, matchReg, strTemplate, replacePure) 
         });
 
         replacers.forEach(item => {
-            const regexp = new RegExp(replaceToSafeText(item.origin));
+            const regexp = new RegExp(replaceToSafeText(item.origin), "g");
             result = result.replace(regexp, item.new);
         });
     }
@@ -156,9 +156,8 @@ function sortObjectByKey(unordered) {
 }
 
 
-function writeDataToFile(data, resourcePath) {
-    const path = resourcePath.match(/(.*)((\.jsx$)|(\.js$))/);
-    const filePath = getPathName(path[1]);
+function writeDataToFile(data, langPath, noAddDeprecatedLangs) {
+    const filePath = getPathName(langPath);
 
     try {
         const file = fs.readFileSync(filePath);
@@ -181,9 +180,11 @@ function writeDataToFile(data, resourcePath) {
                 Object.keys(oldData[lang]).forEach(k => {
                     if (newData[lang][k] === undefined) {
                         if (k.indexOf(deprecatedMark) < 0) {
-                            const dKey = k + deprecatedMark
-                            // mark an old item as deprecated
-                            newData[lang][dKey] = oldData[lang][k]
+                            if(noAddDeprecatedLangs && noAddDeprecatedLangs.indexOf(lang) < 0) {
+                                const dKey = k + deprecatedMark
+                                // mark an old item as deprecated
+                                newData[lang][dKey] = oldData[lang][k]
+                            }
                         } else {
                             // a marked deprecated
                             const dKey = k.replace(deprecatedMark, '')
@@ -207,6 +208,8 @@ function writeDataToFile(data, resourcePath) {
             flag: 'wx'
         })
     }
+
+    return filePath;
 }
 
 

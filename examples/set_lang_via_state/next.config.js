@@ -11,6 +11,7 @@ module.exports = {
             use: {
                 loader: "react-i18loader",
                 options: {
+                    storePath: "locales",
                     languages: ["zh_Hans_CN", "zh_Hant_HK", "en_US"],
                     method: "state", // It is important to set lang via state
                 }
