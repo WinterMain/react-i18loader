@@ -1,6 +1,6 @@
-const md5 = require('blueimp-md5')
-const fs = require('fs');
-const deprecatedMark = '@DEPRECATED@'
+const md5 = require("blueimp-md5")
+const fs = require("fs");
+const deprecatedMark = "@DEPRECATED@"
 const chineseS2T = require("chinese-s2t");
 
 function transChineseS2T(value) {
@@ -19,7 +19,7 @@ function getObjValue(value, field) {
  * Generate key for text
  */
 function generateKey(text) {
-    const trimed = text.replace(/[\s\r\n]/g, '')
+    const trimed = text.replace(/[\s\r\n]/g, "")
     const textKey = trimed.slice(0, 8)
 
     return trimed.length > 8 ? `${textKey}_${md5(text).slice(0, 4)}` : textKey
@@ -28,27 +28,27 @@ function generateKey(text) {
 // Remove comments in source code
 // Remove comments like /*  */ and //
 function removeComments(source) {
-    return source.replace(/\/\*[\s\S]*?\*\//igm, '');
+    return source.replace(/\/\*[\s\S]*?\*\//igm, "");
 }
 
 function replaceToSafeText(text) {
-    return text.replace(/\*/g, '\\*').replace(/\./g, '\\.')
-        .replace(/\+/g, '\\+').replace(/\^/g, '\\^')
-        .replace(/\[/g, '\\[').replace(/\]/g, '\\]')
-        .replace(/\?/g, '\\?').replace(/\$/g, '\\$')
-        .replace(/\(/g, '\\(').replace(/\)/g, '\\)')
-        .replace(/\|/g, '\\|')
+    return text.replace(/\*/g, "\\*").replace(/\./g, "\\.")
+        .replace(/\+/g, "\\+").replace(/\^/g, "\\^")
+        .replace(/\[/g, "\\[").replace(/\]/g, "\\]")
+        .replace(/\?/g, "\\?").replace(/\$/g, "\\$")
+        .replace(/\(/g, "\\(").replace(/\)/g, "\\)")
+        .replace(/\|/g, "\\|")
 }
 
 function trimText(text) {
-    return text.trim().replace(/(^\s+)|(^\s+)/g, ' ')
+    return text.trim().replace(/(^\s+)|(^\s+)/g, " ")
 }
 
 // Get translation json filename
 function getFileName(resourcePath) {
-    const paths = resourcePath.split('/')
+    const paths = resourcePath.split("/")
     const file = paths[paths.length - 1]
-    return file.slice(0, file.lastIndexOf('.'))
+    return file.slice(0, file.lastIndexOf("."))
 }
 
 function getPathName(filename) {
@@ -56,7 +56,7 @@ function getPathName(filename) {
 }
 
 function generateContent(text, matchReg) {
-    let stringCase = 'this.$t("key")';
+    let stringCase = "this.$t(\"key\")";
     let jsxCase = `{${stringCase}}`;
     // String case "text"
     const strResult = generateForReg(text, /\"(.*?)\"/igm, matchReg, stringCase);
@@ -101,8 +101,8 @@ function generateForReg(text, selectionReg, matchReg, strTemplate, replacePure) 
     }
 }
 
-function importlang(filename) {
-    return `import CurLangTrans from "./${getPathName(filename)}";`
+function importlang(filePath, filename) {
+    return `import CurLangTrans from "${filePath}${getPathName(filename)}";`
 }
 
 function generateFuncs(target, getLangStr, defaultLang) {
@@ -121,14 +121,14 @@ function insertScript(source, sourceMatchs, defaultLang, method) {
     let getLangStr;
     switch (method) {
         case "state": {
-            getLangStr = `(this.state||{}).$lang`;
+            getLangStr = "(this.state||{}).$lang";
         } break;
         case "func": {
             getLangStr = `(this.$getLang?this.$getLang():"${defaultLang}")`;
         } break;
         case "props":
         default: {
-            getLangStr = `(this.props||{}).$lang`;
+            getLangStr = "(this.props||{}).$lang";
         } break;
     }
     if(sourceMatchs && sourceMatchs.length > 0) {
@@ -136,7 +136,7 @@ function insertScript(source, sourceMatchs, defaultLang, method) {
             let curMatch = cur.match(/@i18n\([\"|'](.*?)[\"|']\)/);
             let objName = trimText(curMatch[1]);
             source += generateFuncs(objName, getLangStr, defaultLang);
-            source = source.replace(curMatch[0], '');
+            source = source.replace(curMatch[0], "");
         });
     }
 
@@ -146,7 +146,7 @@ function insertScript(source, sourceMatchs, defaultLang, method) {
 function sortObjectByKey(unordered) {
     const ordered = {};
     Object.keys(unordered).sort().forEach(function (key) {
-        if (typeof unordered[key] === 'string') {
+        if (typeof unordered[key] === "string") {
             ordered[key] = unordered[key];
         } else {
             ordered[key] = sortObjectByKey(unordered[key]);
@@ -171,7 +171,7 @@ function writeDataToFile(data, langPath, noAddDeprecatedLangs) {
                 Object.keys(newData[lang]).forEach(k => {
                     let dKey = k
                     if (dKey.indexOf(deprecatedMark) >= 0) {
-                        dKey = dKey.replace(deprecatedMark, '')
+                        dKey = dKey.replace(deprecatedMark, "")
                     }
                     if (oldData[lang][dKey] !== undefined) {
                         newData[lang][k] = oldData[lang][dKey]
@@ -187,7 +187,7 @@ function writeDataToFile(data, langPath, noAddDeprecatedLangs) {
                             }
                         } else {
                             // a marked deprecated
-                            const dKey = k.replace(deprecatedMark, '')
+                            const dKey = k.replace(deprecatedMark, "")
                             if (newData[lang][dKey] === undefined) {
                                 // not reused item, keep deprecated mark
                                 newData[lang][k] = oldData[lang][k]
@@ -201,11 +201,11 @@ function writeDataToFile(data, langPath, noAddDeprecatedLangs) {
         });
 
         fs.writeFileSync(filePath, JSON.stringify(sortObjectByKey(newData), null, 4), {
-            flag: 'w'
+            flag: "w"
         });
     } catch (error) {
         fs.writeFileSync(filePath, JSON.stringify(sortObjectByKey(data), null, 4), {
-            flag: 'wx'
+            flag: "wx"
         })
     }
 

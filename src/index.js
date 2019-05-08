@@ -1,6 +1,19 @@
-const loaderUtils = require('loader-utils')
-const handler = require('./handler');
-const fs = require('fs');
+const loaderUtils = require("loader-utils")
+const handler = require("./handler");
+const fs = require("fs");
+
+function addSlash(str){
+  if(str && !str.endsWith("/")) {
+    str = str + "/";
+  }
+  return str;
+}
+function removeFirstSlash(str){
+  if(str && str.startsWith("/")) {
+    str = str.substring(1);
+  }
+  return str;
+}
 
 module.exports = function (source, map) {
   // init options
@@ -34,7 +47,41 @@ module.exports = function (source, map) {
   }
 
   const resultContent = handler.generateContent(pureSource, matchRegText);
-  let insertScript = handler.importlang(filename) + resultContent.result;
+
+  let langPath;
+  let importPath;
+  // Use custom the path for storing the language json file
+  if(options.storePath) {
+    let rootFolderPath = this.rootContext;
+    let currentRelatePath = this.resourcePath.replace(rootFolderPath, "");
+    let langPathJS = (addSlash(rootFolderPath) + addSlash(removeFirstSlash(options.storePath)) + removeFirstSlash(currentRelatePath));
+    langPath = langPathJS.match(/(.*)((\.jsx$)|(\.js$))/)[1];
+
+    // Check if the relative folder is exist, create one if not.
+    const lastFolder = langPath.substring(0, langPath.lastIndexOf("/"));
+    const folderToBeAddedStr = lastFolder.replace(rootFolderPath, "");
+    const folderToBeAdded = folderToBeAddedStr.split("/");
+    let currentFolder = rootFolderPath;
+    for (let i = 0; i < folderToBeAdded.length; i++) {
+      currentFolder = addSlash(currentFolder) + folderToBeAdded[i];
+      if(!fs.existsSync(currentFolder)) {
+        fs.mkdirSync(currentFolder, { recursive: true });
+      }
+    }
+
+    // Cal importPath
+    let currentRelatePathArr = removeFirstSlash(currentRelatePath).substring(0, langPath.lastIndexOf("/")).split("/");
+    let importRelatetivePath = "";
+    for (let i = 0; i < currentRelatePathArr.length - 1; i++) {
+      importRelatetivePath += "../";
+    }
+    importPath = importRelatetivePath + removeFirstSlash(addSlash(folderToBeAddedStr));
+  } else {
+    langPath = this.resourcePath.match(/(.*)((\.jsx$)|(\.js$))/)[1];
+    importPath = "./";
+  }
+
+  let insertScript = handler.importlang(importPath, filename) + resultContent.result;
   insertScript = handler.insertScript(insertScript, placedLangMark, defaultLang, options.method);
 
   const replacers = resultContent.replacers;
@@ -61,40 +108,6 @@ module.exports = function (source, map) {
         data[curlang][item.key] = translator(item.old, curlang);
     });
   });
-
-  let langPath;
-  // Use custom the path for storing the language json file
-  if(options.storePath) {
-    let addSlash = function(str){
-      if(str && !str.endsWith("/")) {
-        str = str + "/";
-      }
-      return str;
-    }
-    let removeFirstSlash = function(str){
-      if(str && str.startsWith("/")) {
-        str = str.substring(1);;
-      }
-      return str;
-    }
-    let rootFolderPath = this.rootContext;
-    let currentRelatePath = this.resourcePath.replace(rootFolderPath, "");
-    let langPathJS = (addSlash(rootFolderPath) + addSlash(removeFirstSlash(options.storePath)) + removeFirstSlash(currentRelatePath));
-    langPath = langPathJS.match(/(.*)((\.jsx$)|(\.js$))/)[1];
-
-    // Check if the relative folder is exist, create one if not.
-    const lastFolder = langPath.substring(0, langPath.lastIndexOf("/"));
-    const folderToBeAdded = lastFolder.replace(rootFolderPath, "").split("/");
-    let currentFolder = rootFolderPath;
-    for (let i = 0; i < folderToBeAdded.length; i++) {
-      currentFolder = addSlash(currentFolder) + folderToBeAdded[i];
-      if(!fs.existsSync(currentFolder)) {
-        fs.mkdirSync(currentFolder, { recursive: true });
-      }
-    }
-  } else {
-    langPath = this.resourcePath.match(/(.*)((\.jsx$)|(\.js$))/)[1];
-  }
 
   handler.writeDataToFile(data, langPath, [defaultLang, "zh_Hant_HK"]);
   console.log("i18n: " + this.resourcePath.replace(this.rootContext, "") + " ✔");
