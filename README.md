@@ -2,7 +2,7 @@
 
 react-i18loader is a webpack loader for React (or React framework, e.g. Next.js) i18n(Internationalization) solution.
 
-[![build status](https://img.shields.io/travis/reduxjs/react-i18loader/master.svg?style=flat-square)](https://travis-ci.org/reduxjs/react-i18loader) [![npm version](https://img.shields.io/npm/v/react-i18loader.svg?style=flat-square)](https://www.npmjs.com/package/react-i18loader) [![npm downloads](https://img.shields.io/npm/dm/react-i18loader.svg?style=flat-square)](https://www.npmjs.com/package/react-i18loader)
+[![npm version](https://img.shields.io/npm/v/react-i18loader.svg?style=flat-square)](https://www.npmjs.com/package/react-i18loader) [![npm downloads](https://img.shields.io/npm/dm/react-i18loader.svg?style=flat-square)](https://www.npmjs.com/package/react-i18loader)
 
 # [Documentation in Chinese 中文文档](https://www.samyoc.com/single/143)
 
