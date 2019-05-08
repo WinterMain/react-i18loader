@@ -28,11 +28,11 @@ npm install react-i18loader --save-dev
         /(node_modules)|(\.next)/,
     ],
     use: {
-        // The folder where store the language json file.
-        // If storePath value is null or empty, the language json file would store corresponding to target js/jsx file
-        storePath: "locales",
         loader: "react-i18loader",
         options: {
+            // The folder where store the language json file.
+            // If storePath value is null or empty, the language json file would store corresponding to target js/jsx file
+            storePath: "locales",
             languages: ["zh_Hans_CN", "zh_Hant_HK", "en_US"], // The langauages that you App supported
         }
     }
