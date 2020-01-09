@@ -152,5 +152,5 @@ state | An property name `$lang` would add to the state of React component, so y
 func | You need to add a method `$getLang() {return XXX; // The language code like 'zh_Hans_CN'` to your React component}. For more information, please refer the `set_lang_via_func` in `examples` folder|
 
 ## They are using `react-i18loader`
-[<img src="https://www.samyoc.com/img/logo.png" width="100px;" alt="SamYoc"/><br /><sub><b>SamYoc</b></sub>](https://www.samyoc.com/)| 
+[<img src="https://www.samyoc.com/img/logo.png" height="60px;" alt="SamYoc"/>](https://www.samyoc.com/)| 
 :---: |
